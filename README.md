@@ -1,6 +1,6 @@
 # AI Native Dev
 
-**一次安装，一个 `/ai-dev` 入口，在 OpenCode 内通过自然语言完成需求、规格、实现、测试、独立 QA 和质量验收。**
+**在 OpenCode 使用 `/ai-dev`，在 Codex 使用 `$ai-native-dev`，通过自然语言完成需求、规格、实现、测试、独立 QA 和质量验收。**
 
 这是可运行的工程入门包，采用可替换的 Matt Skills + 独立的质量控制层，而不是 Fork Matt。优先支持已有 Git 仓库里的 JS/TS、Python 项目。需要 Node.js 20+ 和 Git，OpenCode 已安装时可以直接使用命令。
 
@@ -43,6 +43,12 @@ npx --yes --package /path/to/ai-native-dev-local-0.2.0.tgz ai-native-dev install
 仓库首次发布方式见 [PUBLISH.md](PUBLISH.md)。
 
 ## 使用方式
+
+### Codex
+
+将仓库克隆到本地后，把仓库根目录作为 `ai-native-dev` Skill 链接到用户的 Codex Skill 目录（Windows 可用目录联接，其他系统可用符号链接）。仓库根目录的 `SKILL.md` 是 Codex 入口；在 Codex 中使用 `$ai-native-dev`。Codex 首次在目标 Git 项目中使用时，会按需运行本仓库安装器，将质量门禁运行器和策略复制到目标项目。安装器也会生成 OpenCode 文件，但 Codex 不依赖它们。Codex 发现新 Skill 失败时，重新打开 Codex。
+
+### OpenCode
 
 重启/重新打开 OpenCode 项目，在聊天框输入：
 

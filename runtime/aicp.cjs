@@ -11,7 +11,12 @@ function readJson(p){return JSON.parse(fs.readFileSync(p,'utf8'));}
 function writeJson(p,x){fs.mkdirSync(path.dirname(p),{recursive:true});fs.writeFileSync(p,JSON.stringify(x,null,2)+'\n');}
 function sha(buf){return crypto.createHash('sha256').update(buf).digest('hex');}
 function fileHash(p){return sha(fs.readFileSync(p));}
-function run(command,args,cwd,opts={}){const r=cp.spawnSync(command,args,{cwd,encoding:'utf8',timeout:opts.timeout||20000,maxBuffer:8*1024*1024,env:{...process.env,...(opts.env||{})}});return {code:r.status,stdout:r.stdout||'',stderr:r.stderr||'',error:r.error};}
+function run(command,args,cwd,opts={}){
+  const executable=process.platform==='win32'&&['npm','pnpm','yarn','bun'].includes(command)?command+'.cmd':command;
+  const useCmd=process.platform==='win32'&&executable.endsWith('.cmd');
+  const r=cp.spawnSync(useCmd?'cmd.exe':executable,useCmd?['/d','/s','/c',executable,...args]:args,{cwd,encoding:'utf8',timeout:opts.timeout||20000,maxBuffer:8*1024*1024,env:{...process.env,...(opts.env||{})}});
+  return {code:r.status,stdout:r.stdout||'',stderr:r.stderr||'',error:r.error};
+}
 function requireOk(r,what){if(r.error || r.code!==0)throw new Error(what+': '+(r.stderr||r.error?.message||r.stdout||r.code).slice(-1500));return r.stdout.trim();}
 function git(root,...a){const r=run('git',a,root);return r.code===0?r.stdout.trim():null;}
 function rootOf(options){return path.resolve(options.project||'.');}
