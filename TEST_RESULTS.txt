@@ -1,0 +1,10 @@
+AI Native Dev 工程验证摘要
+
+1. node --test tests/*.test.cjs：11 项测试通过，0 失败。
+2. npm pack：构建本地 npm 安装包成功。
+3. npx --yes --package <本地 tgz> ai-native-dev install --project <全新 Git 项目> --skip-matt：执行成功；生成 OpenCode 的 /ai-dev 命令、QA Agent、Plugin Hook、运行时、门禁和 CI 模板。
+4. 同一个 npm 安装包不带 --skip-matt：当前环境 GitHub DNS 不可用，安装器保留 /ai-dev 入口并标记 Matt 未接入；不会报告质量 GO。
+5. 本地模拟的 Matt Git 仓库：锁定 Commit 与文件哈希成功，篡改后质量门禁拒绝。
+6. 未在真实 OpenCode 会话中执行 /ai-dev 端到端聊天；也未成功联网克隆 Matt 官方仓库。
+
+以上为测试事实与边界，不等于在任意业务项目中已验证全部研发流程。

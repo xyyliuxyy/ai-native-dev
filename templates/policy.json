@@ -1,0 +1,20 @@
+{
+  "schema": 2,
+  "enforce_matt_lock": true,
+  "risk": {
+    "high_terms": ["支付", "退款", "金额", "权限", "授权", "鉴权", "密钥", "结算", "payment", "refund", "money", "authorization", "permission", "security", "secret"],
+    "medium_terms": ["接口", "新增功能", "数据库", "迁移", "api", "feature", "database", "migration", "integration"],
+    "high_paths": ["(^|/)(auth|payment|billing|security|permissions?)(/|\\.)", "(^|/)(secrets?|credentials?)(/|\\.)", "(^|/)\\.github/workflows/(?!ai-native-quality\\.yml)"],
+    "medium_paths": ["(^|/)(src|app|server|api|db|migrations)/", "(^|/)(package\\.json|pom\\.xml|requirements\\.txt)$"]
+  },
+  "profiles": {
+    "low": {"required": ["test"]},
+    "medium": {"required": ["test", "qa"]},
+    "high": {"required": ["test", "qa", "security"]}
+  },
+  "checks": {
+    "test": {"argv": [], "timeout_seconds": 180},
+    "qa": {"argv": [], "timeout_seconds": 240},
+    "security": {"argv": [], "timeout_seconds": 300}
+  }
+}

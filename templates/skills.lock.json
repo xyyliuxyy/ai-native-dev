@@ -1,0 +1,6 @@
+{
+  "schema": 2,
+  "providers": {
+    "matt": {"repo": "https://github.com/mattpocock/skills.git", "commit": null, "skills": [], "integrity": {}}
+  }
+}
